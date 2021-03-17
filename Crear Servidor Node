@@ -1,0 +1,55 @@
+*CREAR SERVER NODE*
+
+1. En la carpeta del servidor:
+	~npm init
+Esto crea el archivo package.json
+2. Creamos un archivo index.ts
+3. Compilamos
+	~tsc .\index.ts
+4. Definimos el archivo de inicializacion de Typescript
+	~ tsc --init
+En este, especificamos todas las reglas de validación. Debemos habilitar outDir para que todos los archivos compilados caigan en la carpeta de ese directorio.
+	 "outDir": "dist/"
+5. Compilamos con tsc -w para tener compilado live.
+
+6. Instalamos nodemon
+	~npm install -g nodemon
+
+7. Instalar paquetes para el servidor
+	~npm install express
+	~npm install body-parser
+	~npm install cors
+	~npm install mongoose
+	~npm install jsonwebtoken
+	~npm install bcrypt
+8. Creamos una carpeta classes, dentro de esta creamos la clase del servidor
+	server.ts
+	~ 
+import express from 'express';
+
+export class Server{
+    public app: express.Application;
+    public port : number= 3000;
+
+    constructor(){
+        this.app = express();
+    }
+
+    start( callback: () => void){
+        this.app.listen ( this.port, callback );
+    }
+}
+	~
+9. Llamamos al esta clase en el index.ts
+	~
+import { Server } from './classes/server';
+const server = new  Server();
+
+// Levantar Servidor
+    server.start( () => {
+        console.log(`Servidor corriendo, puerto ${server.port}`);
+    });
+    ~
+10. Levantamos el servior
+	~nodemon dist	
+11. 
